@@ -1,0 +1,21 @@
+services:
+  container1:
+    image: tapanxd/container1
+    build:
+      context: ./container1
+    ports:
+      - "6000:6000"
+    volumes:
+      - ./data:/data
+    depends_on:
+      - container2
+  
+  container2:
+    image: tapanxd/container2
+    build:
+      context: ./container2
+    ports:
+      - "7000:7000"
+    volumes:
+      - ./data:/data
+
