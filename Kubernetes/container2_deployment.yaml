@@ -18,12 +18,19 @@ spec:
         - name: a3-container2
           image: us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container2/container2:latest
           ports:
-            - containerPort: 700
+            - containerPort: 7000
           env:
             - name: SHARED_VOLUME_PATH
               value: "/Tapan_PV_dir/"
             - name: PORT
               value: "7000"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "200m"
           volumeMounts:
             - name: shared-volume
               mountPath: /Tapan_PV_dir/
