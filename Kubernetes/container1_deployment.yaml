@@ -14,9 +14,6 @@ spec:
       labels:
         app: container1
     spec:
-      serviceAccountName: cloud-a3
-      imagePullSecrets:
-        - name: ars
       containers:
         - name: a3-container1
           image: us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest 
