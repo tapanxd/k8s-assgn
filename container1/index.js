@@ -7,6 +7,7 @@ const path = require("path")
 app.use(express.json())
 
 const SHARED_PATH = "/Tapan_PV_dir/"
+const CONTAINER_2_URL = "http://container2-service:80/"
 
 app.post("/store-file", (req, res) => {
   const { file, data } = req.body;
