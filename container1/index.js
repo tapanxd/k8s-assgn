@@ -95,7 +95,7 @@ app.post("/calculate", async (req, res) => {
   }
 
   try {
-    const response = await fetch("http://container2:7000/process", {
+    const response = await fetch("http://container2-service:80/process", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ file, product }),
