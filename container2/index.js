@@ -6,10 +6,11 @@ const app = express();
 app.use(express.json());
 
 const PORT = 7000;
+const SHARED_PATH = "/Tapan_PV_dir/"
 
 app.post("/process", (req, res) => {
     const { file, product } = req.body;
-    const filePath = path.resolve(__dirname, "data", file);
+    const filePath = path.join(SHARED_PATH, file);
     console.log(filePath);
     let sum = 0;
     let fileValid = true;

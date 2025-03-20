@@ -6,6 +6,8 @@ const csv = require("csv-parser")
 const path = require("path")
 app.use(express.json())
 
+const SHARED_PATH = "/Tapan_PV_dir/"
+
 // New endpoint: /store-file
 app.post("/store-file", (req, res) => {
   console.log("Received request to /store-file:", req.body)
@@ -24,7 +26,7 @@ app.post("/store-file", (req, res) => {
 
   // For Kubernetes deployment, we'll use /data directory for the persistent volume
   // This will be changed to your specific PV directory name in the Kubernetes config
-  const filePath = path.resolve(__dirname, "/data", file)
+  const filePath = path.join(SHARED_PATH, file);
   console.log("Attempting to write to:", filePath)
 
   try {
@@ -52,7 +54,7 @@ app.post("/calculate", async (req, res) => {
     return res.status(400).json({ file: file || null, error: "Invalid JSON input." })
   }
 
-  const filePath = path.resolve(__dirname, "/data", file)
+  const filePath = path.join(SHARED_PATH, file);
   console.log(filePath)
 
   if (!fs.existsSync(filePath)) {

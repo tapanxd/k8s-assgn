@@ -26,12 +26,12 @@ spec:
             - name: CONTAINER_2_URL
               value: "http://container2-service:80"
             - name: SHARED_VOLUME_PATH
-              value: "/mnt/data"
+              value: "/Tapan_PV_dir/"
             - name: PORT
               value: "6000"
           volumeMounts:
             - name: shared-volume
-              mountPath: /mnt/data
+              mountPath: /Tapan_PV_dir/
       volumes:
         - name: shared-volume
           persistentVolumeClaim:
