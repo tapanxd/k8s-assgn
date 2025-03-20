@@ -14,6 +14,8 @@ spec:
       labels:
         app: container1
     spec:
+      imagePullSecrets:
+      - name: artifact-registry-secret
       containers:
         - name: a3-container1
           image: us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest 
