@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container2
+  labels:
+    app: container2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container2
+  template:
+    metadata:
+      labels:
+        app: container2
+    spec:
+      serviceAccountName: cloud-a3
+      imagePullSecrets:
+        - name: ars
+      containers:
+        - name: a3-container2
+          image: us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container2/container2:latest
+          ports:
+            - containerPort: 700
+          env:
+            - name: SHARED_VOLUME_PATH
+              value: "/mnt/data"
+            - name: PORT
+              value: "7000"
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /mnt/data
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container2-service
+spec:
+  selector:
+    app: container2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7000
+  type: ClusterIP

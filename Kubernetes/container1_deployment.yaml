@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container1
+  labels:
+    app: container1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container1
+  template:
+    metadata:
+      labels:
+        app: container1
+    spec:
+      serviceAccountName: cloud-a3
+      imagePullSecrets:
+        - name: ars
+      containers:
+        - name: a3-container1
+          image: us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest 
+          ports:
+            - containerPort: 6000
+          env:
+            - name: CONTAINER_2_URL
+              value: "http://container2-service:80"
+            - name: SHARED_VOLUME_PATH
+              value: "/mnt/data"
+            - name: PORT
+              value: "6000"
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /mnt/data
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: shared-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container1-service
+spec:
+  selector:
+    app: container1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 6000
+  type: LoadBalancer

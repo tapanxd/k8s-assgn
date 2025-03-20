@@ -16,6 +16,12 @@ app.post("/store-file", (req, res) => {
     return res.status(400).json({ file: null, error: "Invalid JSON input." })
   }
 
+  if (!data) {
+    return res
+      .status(400)
+      .json({ file: file, error: "Data is required to store the file." });
+  }
+
   // For Kubernetes deployment, we'll use /data directory for the persistent volume
   // This will be changed to your specific PV directory name in the Kubernetes config
   const filePath = path.resolve(__dirname, "/data", file)

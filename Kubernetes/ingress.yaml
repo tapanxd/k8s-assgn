@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: container1-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: tapancontainer1.com
+      http:
+        paths:
+          - path: /store-file
+            pathType: Prefix
+            backend:
+              service:
+                name: container1-service
+                port:
+                  number: 80
+          - path: /calculate
+            pathType: Prefix
+            backend:
+              service:
+                name: container1-service
+                port:
+                  number: 80

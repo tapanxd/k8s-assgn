@@ -1,6 +1,6 @@
 services:
   container1:
-    image: tapanxd/container1
+    image: tapanxd/container1:latest
     build:
       context: ./container1
     ports:
@@ -11,7 +11,7 @@ services:
       - container2
   
   container2:
-    image: tapanxd/container2
+    image: tapanxd/container2:latest
     build:
       context: ./container2
     ports:
