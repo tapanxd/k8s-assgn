@@ -1,0 +1,45 @@
+steps:
+  # Build Docker image for container1
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest",
+        "./container1",
+      ]
+
+  # Push Docker image for container1
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest",
+      ]
+
+  # Set up kubectl and authenticate with GKE
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - "gcloud"
+      - "container"
+      - "clusters"
+      - "get-credentials"
+      - "cloud-a3-gke-cluster2"
+      - "--zone"
+      - "us-central1-a"
+    id: "Set up kubectl"
+
+  # Deploy the latest image to GKE
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - "kubectl"
+      - "apply"
+      - "-f"
+      - "Kubernetes/container1_deployment.yaml"
+    id: "Deploy container1 to GKE"
+
+images:
+  - "us-central1-docker.pkg.dev/studied-alloy-452602-q9/a3-container1/container1:latest"
+
+options:
+  logging: CLOUD_LOGGING_ONLY

@@ -70,6 +70,24 @@ module "gke" {
   }
 }
 
+resource "google_project_iam_member" "artifact_registry_admin" {
+  project = var.gcp_project_id
+  role    = "roles/artifactregistry.admin"
+  member  = "serviceAccount:${var.gke_service_account_name}"
+}
+
+resource "google_project_iam_member" "gke_service_account_artifact_reader" {
+  project = var.gcp_project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${var.gke_service_account_name}"
+}
+
+resource "google_project_iam_member" "gke_service_account_developer" {
+  project = var.gcp_project_id
+  role    = "roles/container.developer"
+  member  = "serviceAccount:${var.gke_service_account_name}"
+}
+
 resource "kubernetes_secret" "artifact_registry" {
   metadata {
     name      = "artifact-registry-secret"
