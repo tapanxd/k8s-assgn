@@ -17,7 +17,7 @@ steps:
       - "kubectl"
       - "apply"
       - "-f"
-      - "/Kubernetes/persistanceVolumeClaim.yaml"
+      - "./persistanceVolumeClaim.yaml"
     id: "Deploy pvc to GKE"
 options:
   logging: CLOUD_LOGGING_ONLY
