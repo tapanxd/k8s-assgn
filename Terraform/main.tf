@@ -91,14 +91,3 @@ resource "kubernetes_secret" "artifact_registry" {
 
   type = "kubernetes.io/dockerconfigjson"
 }
-  # node_pools_taints = {
-  #   all = []
-
-  #   default-node-pool = [
-  #     {
-  #       key    = "default-node-pool"
-  #       value  = true
-  #       effect = "PREFER_NO_SCHEDULE"
-  #     },
-  #   ]
-  # }
