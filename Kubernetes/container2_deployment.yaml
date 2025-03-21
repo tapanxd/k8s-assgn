@@ -27,12 +27,12 @@ spec:
             - name: PORT
               value: "7000"
           resources:
-            requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
+              requests:
+                cpu: "100m"      # Minimum needed to get scheduled
+                memory: "128Mi"
+              limits:
+                cpu: "300m"
+                memory: "256Mi"
           volumeMounts:
             - name: shared-volume
               mountPath: /Tapan_PV_dir/
