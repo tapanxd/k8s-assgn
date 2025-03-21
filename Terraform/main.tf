@@ -100,7 +100,7 @@ resource "kubernetes_secret" "artifact_registry" {
         "us-central1-docker.pkg.dev" = {
           "username" = "_json_key"
           "password" = file("./studied-alloy-452602-q9-3921c91b71ed.json")
-          "email"    = "your-email@example.com"
+          "email"    = "tapan.panchal.2000@gmail.com"
           "auth"     = base64encode(format("_json_key:%s", file("./studied-alloy-452602-q9-3921c91b71ed.json")))
         }
       }
