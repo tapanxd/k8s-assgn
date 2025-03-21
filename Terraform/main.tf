@@ -69,6 +69,28 @@ module "gke" {
     ]
   }
 }
+
+resource "kubernetes_secret" "artifact_registry" {
+  metadata {
+    name      = "artifact-registry-secret"
+    namespace = "default"
+  }
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        "us-central1-docker.pkg.dev" = {
+          "username" = "_json_key"
+          "password" = file("./studied-alloy-452602-q9-3921c91b71ed.json")
+          "email"    = "your-email@example.com"
+          "auth"     = base64encode(format("_json_key:%s", file("./studied-alloy-452602-q9-3921c91b71ed.json")))
+        }
+      }
+    })
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+}
   # node_pools_taints = {
   #   all = []
 
