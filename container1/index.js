@@ -7,7 +7,7 @@ const path = require("path")
 app.use(express.json())
 
 const SHARED_PATH = "/Tapan_PV_dir/"
-const CONTAINER_2_URL = "http://container2-service:80/"
+const CONTAINER_2_URL = "http://container2-service:80"
 
 app.post("/store-file", (req, res) => {
   const { file, data } = req.body;
@@ -36,12 +36,13 @@ app.post("/store-file", (req, res) => {
     return res.status(200).json({ file: file, message: "Success." });
   });
 });
+
 app.post("/calculate", async (req, res) => {
   const { file, product } = req.body;
 
   // Validate input
-  if (!file) {
-    return res.status(400).json({ file: null, error: "Invalid JSON input." });
+  if (!file || !product) {
+    return res.status(400).json({ file: file || null, error: "Invalid JSON input." });
   }
 
   const filePath = path.join(SHARED_PATH, file);
@@ -64,15 +65,36 @@ app.post("/calculate", async (req, res) => {
   });
 
   try {
-    const response = await fetch(`${CONTAINER_2_URL}/process`, {
+    // Changed from /process to /calculate to match Container 2's endpoint
+    const response = await fetch(`${CONTAINER_2_URL}/calculate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ file, product }),
     });
 
+    // For debugging - uncomment if needed`
+    console.log("Response status:", response.status);
+    console.log("Content-Type:", response.headers.get("content-type"));
+    
+    const rawText = await response.text();
+    console.log("Raw response:", rawText.substring(0, 200));
+    
+    try {
+      const data = JSON.parse(rawText);
+      return res.status(response.status).json(data);
+    } catch (parseError) {
+      return res.status(500).json({
+        error: "Error parsing response from Container 2",
+        details: parseError.message,
+        rawResponse: rawText.substring(0, 200)
+      });
+    }
+
+    // Standard approach - parse JSON directly
     const data = await response.json();
     return res.status(response.status).json(data);
   } catch (err) {
+    console.error("Error communicating with Container 2:", err);
     return res.status(500).json({
       error: "Error communicating with Container 2.",
       details: err.message,
