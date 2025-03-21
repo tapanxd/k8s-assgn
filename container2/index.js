@@ -7,8 +7,8 @@ app.use(express.json());
 
 const PORT = 7000;
 const SHARED_PATH = "/Tapan_PV_dir/"
-    
-app.post("/calculate", (req, res) => {
+
+app.post("/process", (req, res) => {
     const { file, product } = req.body;
   
     const filePath = path.join(SHARED_PATH, file);
@@ -81,6 +81,6 @@ app.post("/calculate", (req, res) => {
   });
   
   app.listen(PORT, () => {
-    console.log("Container 2 running on port 3000.");
+    console.log("Container 2 running on port 7000.");
   });
   
