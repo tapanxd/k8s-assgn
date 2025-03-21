@@ -35,7 +35,7 @@ steps:
       - "kubectl"
       - "apply"
       - "-f"
-      - "Kubernetes/container1_deployment.yaml"
+      - "Kubernetes/container2_deployment.yaml"
     id: "Deploy container2 to GKE"
 
 images:

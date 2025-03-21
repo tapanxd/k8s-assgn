@@ -6,9 +6,9 @@ steps:
       - "container"
       - "clusters"
       - "get-credentials"
-      - "cloud-a3-gke-cluster"
+      - "cloud-a3-gke-cluster2"
       - "--zone"
-      - "us-central1-b"
+      - "us-central1-a"
     id: "Set up kubectl"
 
   # Deploy the latest image to GKE
