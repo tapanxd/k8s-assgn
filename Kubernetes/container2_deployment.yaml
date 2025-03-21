@@ -28,11 +28,11 @@ spec:
               value: "7000"
           resources:
             requests:
-              memory: "256Mi"
               cpu: "100m"
+              memory: "256Mi"
             limits:
+              cpu: "500m"
               memory: "512Mi"
-              cpu: "200m"
           volumeMounts:
             - name: shared-volume
               mountPath: /Tapan_PV_dir/
