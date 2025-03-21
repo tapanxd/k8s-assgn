@@ -1,0 +1,23 @@
+steps:
+  # Get GKE credentials
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - "gcloud"
+      - "container"
+      - "clusters"
+      - "get-credentials"
+      - "cloud-a3-gke-cluster"
+      - "--zone"
+      - "us-central1-b"
+    id: "Set up kubectl"
+
+  # Deploy the latest image to GKE
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - "kubectl"
+      - "apply"
+      - "-f"
+      - "/Kubernetes/persistanceVolumeClaim.yaml"
+    id: "Deploy pvc to GKE"
+options:
+  logging: CLOUD_LOGGING_ONLY
