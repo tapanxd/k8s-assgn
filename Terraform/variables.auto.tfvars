@@ -1,4 +1,4 @@
-gcp_credentials="studied-alloy-452602-q9-3921c91b71ed.json"
+gcp_credentials="studied-alloy-452602-q9-1e2f7f8a081b.json"
 gcp_project_id="studied-alloy-452602-q9"
 gke_cluster_name="cloud-a3-gke-cluster2"
 gcp_region= "us-central1"
