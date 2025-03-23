@@ -1,0 +1,10 @@
+gcp_credentials="studied-alloy-452602-q9-3921c91b71ed.json"
+gcp_project_id="studied-alloy-452602-q9"
+gke_cluster_name="cloud-a3-gke-cluster2"
+gcp_region= "us-central1"
+gke_regional=false
+gke_zones_list=["us-central1-a"]
+gke_vpc = "default"
+gke_subnet = "default"
+gke_node_pools_name = "cloud-a3-gke-node-pool"
+gke_service_account_name="cloud-a3@studied-alloy-452602-q9.iam.gserviceaccount.com"
